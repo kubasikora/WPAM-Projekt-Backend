@@ -15,11 +15,14 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
-from drf_spectacular.views import SpectacularSwaggerView, SpectacularAPIView
+from django.views.generic import TemplateView
+from rest_framework.schemas import get_schema_view
+
+app_name = "polityper"
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('api/schema/', SpectacularAPIView.as_view(), name='schema'),
-    path('api/swagger/', SpectacularSwaggerView.as_view(url_name='schema'), name='swagger'),
+    path('api/schema/', get_schema_view(title='wpam-project', description='WPAM-Projekt', version='0.0.0'), name='openapi-schema'),
+    path('api/swagger/', TemplateView.as_view(template_name='swagger-ui.html', extra_context={'schema_url': 'openapi-schema'}), name='swagger-ui'),
     path('api/teams/', include("teams.urls", namespace='teams'))
 ]

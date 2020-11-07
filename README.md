@@ -24,3 +24,6 @@ Dodatkowe biblioteki instalujemy poprzez `pip`. W pierwszej kolejności, upewnia
 
 ## Utworzenie admina
 Przed użyciem aplikacji należy stworzyć konto admina, wykorzystując polecenie `python manage.py createsuperuser`. Po uzupełnieniu wszystkich informacji, zostanie utworzone konto administracyjne. Panel administracyjny można otworzyć w przeglądarce wchodząc na stronę `http://localhost:8000/admin`. Z poziomu administratora można tworzyć nowe konta zwykłych użytkowników.
+
+## Deployment na produkcje
+Aplikacja jest hostowana na heroku pod linkiem [https://wpamprojekt-prod.herokuapp.com/](https://wpamprojekt-prod.herokuapp.com/). Aby wrzucić nową wersję należy zalogować się w heroku CLI za pomocą polecenia `heroku login`. Następnie budujemy nowy obraz aplikacji i wrzucamy go na chmurę za pomocą polecenia `heroku container:push web --app wpamprojekt-prod`. Po poprawnym wrzuceniu obrazu, uruchamiamy kontener za pomocą polecenia `heroku container:release web --app wpamprojekt-prod`. Po chwili aplikacja powinna zostać zaktualizowana.
