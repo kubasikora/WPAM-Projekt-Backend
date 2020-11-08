@@ -25,10 +25,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = os.getenv("SECRET_KEY", '$lff9%frhmm*)u1sa4!le@ddgpvj(d^1u_v3ynt$fij2ytt@l8')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = os.getenv("DEBUG", True)
+DEBUG = eval(os.getenv("DEBUG", True))
 
-ALLOWED_HOSTS = os.getenv("ALLOWED_HOSTS", [])
-
+ALLOWED_HOSTS = [os.getenv("ALLOWED_HOSTS", "")]
 
 # Application definition
 
@@ -52,7 +51,7 @@ INSTALLED_APPS = [
 
 REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES': [
-        'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly'
+        'rest_framework.permissions.AllowAny' if DEBUG else 'rest_framework.permissions.IsAuthenticated' 
     ]
 }
 
@@ -146,7 +145,7 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/3.1/topics/i18n/
 
-LANGUAGE_CODE = 'pl-PL'
+LANGUAGE_CODE = 'en-GB'
 
 TIME_ZONE = 'Europe/Warsaw'
 
