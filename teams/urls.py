@@ -4,6 +4,6 @@ from teams import views
 app_name = "teams"
 
 urlpatterns = [
-    path('', views.TeamListRESTView.as_view(), name='team_list'),
-    path('<str:pk>', views.TeamInstanceRESTView.as_view(), name='team_instance')
+    path('', views.ContestantListRESTView.as_view(), name='contestant_list'),
+    path('<str:pk>', views.ContestantInstanceRESTView.as_view(), name='contestant_instance')
 ]

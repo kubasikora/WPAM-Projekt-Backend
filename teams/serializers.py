@@ -1,13 +1,13 @@
 from rest_framework import serializers
 from teams import models
 
-class TeamSnippetSerializer(serializers.ModelSerializer):
+class ContestantSnippetSerializer(serializers.ModelSerializer):
     class Meta:
-        model = models.Team
+        model = models.Contestant
         fields = ('id', 'name')
 
 
-class TeamSerializer(serializers.ModelSerializer):
+class ContestantSerializer(serializers.ModelSerializer):
     class Meta:
-        model = models.Team
+        model = models.Contestant
         fields = '__all__'
