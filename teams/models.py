@@ -5,7 +5,7 @@ class Country(models.Model):
     code = models.CharField(verbose_name="Skrót", max_length=4, )
 
     def __str__(self):
-        return f"{code}"
+        return f"{self.code}"
 
     class Meta:
         ordering = ("name", "code")
@@ -17,7 +17,7 @@ class Sport(models.Model):
     created = models.DateTimeField(verbose_name="Czas dodania", auto_now_add=True)
 
     def __str__(self):
-        return f"{name}"
+        return f"{self.name}"
 
     class Meta:
         ordering = ("-created", "name")
@@ -31,7 +31,7 @@ class League(models.Model):
     domestic = models.BooleanField(default=True, verbose_name="Liga krajowa")
 
     def __str__(self):
-        return f"{name}"
+        return f"{self.name}"
 
     class Meta:
         ordering = ("-created", "name")
@@ -44,7 +44,7 @@ class Team(models.Model):
     country = models.ForeignKey(Country, on_delete=models.CASCADE, related_name="teams")
     
     def __str__(self):
-        return f"{name} ({country})"
+        return f"{self.name} ({self.country})"
 
     class Meta:
         ordering = ("-created", "name")
