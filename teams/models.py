@@ -6,7 +6,7 @@ class Country(models.Model):
     code = models.CharField(verbose_name="Skrót", max_length=4)
 
     def __str__(self):
-        return f"{self.code}"
+        return f"{self.name}"
 
     class Meta:
         ordering = ("name", "code")
@@ -22,10 +22,11 @@ class Sport(models.TextChoices):
 class Contestant(models.Model):
     name = models.CharField(verbose_name="Nazwa", max_length=100)
     created = models.DateTimeField(verbose_name="Czas dodania", auto_now_add=True)
-    country = models.ForeignKey(Country, on_delete=models.CASCADE, related_name="teams")
-    
+    country = models.ForeignKey(Country, on_delete=models.CASCADE, verbose_name="Kraj pochodzenia", related_name="teams")
+    sport = models.CharField(verbose_name="Dyscyplina", choices=Sport.choices, default=Sport.FOOTBALL, max_length=15)
+
     def __str__(self):
-        return f"{self.name} ({self.country})"
+        return f"{self.name} ({self.country.code})"
 
     class Meta:
         ordering = ("-created", "name")
@@ -35,7 +36,7 @@ class Tournament(models.Model):
     name = models.CharField(verbose_name="Nazwa", max_length=30)
     created = models.DateTimeField(verbose_name="Czas dodania", auto_now_add=True)
     sport = models.CharField(verbose_name="Dyscyplina", choices=Sport.choices, default=Sport.FOOTBALL, max_length=15)
-    teams = models.ManyToManyField(Contestant, verbose_name="Uczestnicy")
+    contestants = models.ManyToManyField(Contestant, blank=True, verbose_name="Uczestnicy")
     domestic = models.BooleanField(default=True, verbose_name="Liga krajowa")
     finished = models.BooleanField(default=False, verbose_name="Ukończony")
 
@@ -61,6 +62,7 @@ class Match(models.Model):
     playerOneResult = models.PositiveIntegerField(verbose_name="Wynik zawodnika 1", default=0)
     playerTwoResult = models.PositiveIntegerField(verbose_name="Wynik zawodnika 2", default=0)
     outcome = models.CharField(verbose_name="Rezultat", choices=Result.choices, default=Result.NOT_PLAYED, max_length=1)
+    finished = models.BooleanField(default=False, verbose_name="Zakończony")
 
     class Meta:
         ordering = ("-dateOfStart",)
