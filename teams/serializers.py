@@ -19,7 +19,7 @@ class VenueSerializer(serializers.ModelSerializer):
 class ContestantSnippetSerializer(serializers.ModelSerializer):
     class Meta:
         model = models.Contestant
-        fields = ('id', 'name')
+        fields = ('id', 'name','sport')
 
 
 class ContestantSerializer(serializers.ModelSerializer):
@@ -47,7 +47,6 @@ class TournamentSerializer(serializers.ModelSerializer):
 class FixtureSnippetSerializer(serializers.ModelSerializer):
     playerOne = ContestantSnippetSerializer()
     playerTwo = ContestantSnippetSerializer()
-    tournament = TournamentSnippetSerializer()
 
     class Meta:
         model = models.Match
