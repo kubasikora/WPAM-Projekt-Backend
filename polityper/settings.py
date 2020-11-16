@@ -119,8 +119,20 @@ DATABASES = {
         'PASSWORD': os.getenv('DB_PASSWORD'),
         'HOST': os.getenv('DB_HOST'),
         'PORT': os.getenv('DB_PORT'),
+    },
+    'local': {
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': os.getenv('LOCAL_DB_NAME'),
+        'USER': os.getenv('LOCAL_DB_USER'),
+        'PASSWORD': os.getenv('LOCAL_DB_PASSWORD'),
+        'HOST': '127.0.0.1',
+        'PORT': '5432',
     }
 }
+
+use_local = eval(os.getenv("USE_LOCAL_DB", "False"))
+if use_local:
+    DATABASES['default'] = DATABASES['local']
 
 
 # Password validation
