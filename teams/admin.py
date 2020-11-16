@@ -18,9 +18,14 @@ class ContestantAdminView(admin.ModelAdmin):
     search_fields = ("name",)
     list_filter = ("country", "sport")
 
+@admin.register(models.Venue)
+class VenueAdminView(admin.ModelAdmin):
+    list_display = ("name", "city", "country")
+    search_fields = ("name",)
+
 @admin.register(models.Match)
 class MatchAdminView(admin.ModelAdmin):
-    list_display = ("wynik", "playerOne", "playerTwo", "finished", "tournament")
+    list_display = ("wynik", "playerOne", "playerTwo", "finished", "tournament", "venue")
     search_fields = ("playerOne", "playerTwo")
     list_filter = ("finished",)
 

@@ -19,6 +19,19 @@ class Sport(models.TextChoices):
     TENNIS = "TENNIS", _("Tenis")
 
 
+class Venue(models.Model):
+    name = models.CharField(verbose_name="Nazwa obiektu", max_length=100)
+    city = models.CharField(verbose_name="Miasto", max_length=25)
+    country = models.ForeignKey(Country, on_delete=models.CASCADE, verbose_name="Kraj")
+    longitude = models.FloatField(verbose_name="Długość geograficzna", max_length=10)
+    latitude = models.FloatField(verbose_name="Wysokość geograficzna", max_length=10)
+
+    class Meta:
+        ordering = ("name",)
+
+    def __str__(self):
+        return f"{self.name} ({self.city})"
+
 class Contestant(models.Model):
     name = models.CharField(verbose_name="Nazwa", max_length=100)
     created = models.DateTimeField(verbose_name="Czas dodania", auto_now_add=True)
@@ -64,6 +77,7 @@ class Match(models.Model):
     playerTwoResult = models.PositiveIntegerField(verbose_name="Wynik zawodnika 2", default=0)
     outcome = models.CharField(verbose_name="Rezultat", choices=Result.choices, default=Result.NOT_PLAYED, max_length=1)
     finished = models.BooleanField(default=False, verbose_name="Zakończony")
+    venue = models.ForeignKey(Venue, on_delete=models.CASCADE, verbose_name="Obiekt", null=True)
 
     class Meta:
         ordering = ("-dateOfStart",)
