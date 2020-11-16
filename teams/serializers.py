@@ -1,6 +1,21 @@
 from rest_framework import serializers
 from teams import models
 
+
+class CountrySerializer(serializers.ModelSerializer):
+    class Meta:
+        model = models.Country
+        fields = ('name', 'code')
+
+
+class VenueSerializer(serializers.ModelSerializer):
+    country = CountrySerializer()
+
+    class Meta:
+        model = models.Venue
+        fields = '__all__'
+
+
 class ContestantSnippetSerializer(serializers.ModelSerializer):
     class Meta:
         model = models.Contestant
@@ -8,6 +23,8 @@ class ContestantSnippetSerializer(serializers.ModelSerializer):
 
 
 class ContestantSerializer(serializers.ModelSerializer):
+    country = CountrySerializer()
+
     class Meta:
         model = models.Contestant
         fields = '__all__'
@@ -34,17 +51,18 @@ class FixtureSnippetSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = models.Match
-        fields = ('id', 'playerOne', 'playerTwo', 'dateOfStart', 'sport', 'tournament')
+        fields = ('id', 'playerOne', 'playerTwo', 'dateOfStart', 'sport')
 
 
 class FixtureSerializer(serializers.ModelSerializer):
     playerOne = ContestantSerializer()
     playerTwo = ContestantSerializer()
     tournament = TournamentSnippetSerializer()
+    venue = VenueSerializer()
 
     class Meta:
         model= models.Match
-        fields = '__all__'
+        fields = ('id', 'playerOne', 'playerTwo', 'dateOfStart', 'sport', 'tournament', 'venue')
 
 
 class ResultSnippetSerializer(serializers.ModelSerializer):
@@ -57,14 +75,12 @@ class ResultSnippetSerializer(serializers.ModelSerializer):
         fields = ('id', 'playerOne', 'playerOneResult', 'playerTwo', 'playerTwoResult', 'dateOfStart', 'sport', 'tournament')
 
 
-class Result(models.Match):
-    pass
-
 class ResultSerializer(serializers.ModelSerializer):
     playerOne = ContestantSerializer()
     playerTwo = ContestantSerializer()
     tournament = TournamentSnippetSerializer()
+    venue = VenueSerializer()
 
     class Meta:
-        model= Result
+        model= models.Match
         fields = '__all__'
