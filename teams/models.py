@@ -59,6 +59,7 @@ class Match(models.Model):
     playerOne = models.ForeignKey(Contestant, on_delete=models.CASCADE, verbose_name="Zawodnik 1", related_name="playerOnes")
     playerTwo = models.ForeignKey(Contestant, on_delete=models.CASCADE, verbose_name="Zawodnik 2", related_name="playerTwos")
     dateOfStart = models.DateTimeField(verbose_name="Czas rozpoczęcia")
+    sport = models.CharField(verbose_name="Dyscyplina", choices=Sport.choices, default=Sport.FOOTBALL, max_length=15)
     playerOneResult = models.PositiveIntegerField(verbose_name="Wynik zawodnika 1", default=0)
     playerTwoResult = models.PositiveIntegerField(verbose_name="Wynik zawodnika 2", default=0)
     outcome = models.CharField(verbose_name="Rezultat", choices=Result.choices, default=Result.NOT_PLAYED, max_length=1)

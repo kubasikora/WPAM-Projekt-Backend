@@ -25,3 +25,46 @@ class TournamentSerializer(serializers.ModelSerializer):
     class Meta:
         model = models.Tournament
         fields = '__all__'
+
+
+class FixtureSnippetSerializer(serializers.ModelSerializer):
+    playerOne = ContestantSnippetSerializer()
+    playerTwo = ContestantSnippetSerializer()
+    tournament = TournamentSnippetSerializer()
+
+    class Meta:
+        model = models.Match
+        fields = ('id', 'playerOne', 'playerTwo', 'dateOfStart', 'sport', 'tournament')
+
+
+class FixtureSerializer(serializers.ModelSerializer):
+    playerOne = ContestantSerializer()
+    playerTwo = ContestantSerializer()
+    tournament = TournamentSnippetSerializer()
+
+    class Meta:
+        model= models.Match
+        fields = '__all__'
+
+
+class ResultSnippetSerializer(serializers.ModelSerializer):
+    playerOne = ContestantSnippetSerializer()
+    playerTwo = ContestantSnippetSerializer()
+    tournament = TournamentSnippetSerializer()
+
+    class Meta:
+        model = models.Match
+        fields = ('id', 'playerOne', 'playerOneResult', 'playerTwo', 'playerTwoResult', 'dateOfStart', 'sport', 'tournament')
+
+
+class Result(models.Match):
+    pass
+
+class ResultSerializer(serializers.ModelSerializer):
+    playerOne = ContestantSerializer()
+    playerTwo = ContestantSerializer()
+    tournament = TournamentSnippetSerializer()
+
+    class Meta:
+        model= Result
+        fields = '__all__'
