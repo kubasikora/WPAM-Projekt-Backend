@@ -32,5 +32,8 @@ urlpatterns = [
     path('auth/registration/', include('rest_auth.registration.urls')),
     path('auth/verify', verify_jwt_token),
     # apps endpoints
-    path('api/teams/', include("teams.api", namespace='teams')),
+    path('api/teams/', include("teams.api", namespace='teams-api')),
+    # apps views
+    path('', TemplateView.as_view(template_name='home.html'), name='home'),
+    path('teams/', include("teams.urls", namespace='teams'))
 ]
