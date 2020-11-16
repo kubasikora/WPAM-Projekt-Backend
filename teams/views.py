@@ -1,7 +1,10 @@
 from django.shortcuts import render
+from django.views import generic 
 from rest_framework import generics
 from rest_framework.schemas.openapi import AutoSchema
 from teams import models, serializers
+
+# rest endpoint views
 
 """Widok listy wszystkich dostępnych zawodników/drużyn"""
 class ContestantListRESTView(generics.ListAPIView):
@@ -58,3 +61,16 @@ class ResultInstanceRESTView(generics.RetrieveAPIView):
     serializer_class = serializers.ResultSerializer
     schema = AutoSchema(operation_id_base='result', tags=['teams'])
     
+# template-based views
+
+"""Widok startowy CMSa aplikacji teams"""
+class HomeView(generic.TemplateView):
+    template_name = "teams_home.html"
+
+
+"""Widok listy wszystkich spotkań"""
+class MatchListView(generic.ListView):
+    queryset = models.Match.objects.all()
+    context_object_name = "matches"
+    paginate_by = 50
+    template_name = "match/list.html"

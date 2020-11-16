@@ -1,0 +1,58 @@
+{% extends "teams.html" %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-6">
+            <h1>Matches list</h1>
+        </div>
+        <div class="col-6" style="text-align: right; margin-top: auto;">
+            <a>
+                <h5 style="color: black;">Add</h5>
+            </a>
+        </div>
+    </div>
+    <br />
+
+    <div class="row">
+        <div class="col">
+            <div>
+                {% if matches|length == 0 %}
+                <div>
+                    <p style="text-align: center; color: gray;">No matches</p>
+                </div>
+                {% else %}
+                {% for match in matches %}
+                <div class="card" style="margin-bottom: 1rem;">
+                    <div class="card-header">
+                        {% if not match.finished %}
+                        <p class="mb-0 lead" style="text-align: center;">
+                            {{ match.playerOne }} - {{ match.playerTwo }}
+                        </p>
+                        {% else %}
+                        <p class="mb-0 lead" style="text-align: center;">
+                            <span class="{% if match.outcome == '1' %} bold {% endif %}">{{ match.playerOne }}</span>
+                            {{ match.playerOneResult }} - {{ match.playerTwoResult }}
+                            <span class="{% if match.outcome == '2' %} bold {% endif %}">{{ match.playerTwo }}</span>
+                        </p>
+                        {% endif %}
+                    </div>
+                    <div class="card-content" style="text-align: center;">
+                        {{ match.dateOfStart | date:"d.m.y H:i"}}<br />
+                        {{ match.tournament }}<br />
+                        {{ match.venue | default:"Not provided" }}
+
+                    </div>
+                </div>
+                {% endfor %}
+                {% endif %}
+                <div class="row">
+                    <div class="col-12">
+                        {% include "pagination.html" with page=matches %}
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+
+{% block main %}
+<div class="container-xl">
+  <div class="row no-gutter" style="padding-bottom: 3rem;">
+      <div class="col-8">
+          <h1 class="display-4">Teams Content Manager</h1>
+          <p class="lead">
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec sit amet blandit nisl. Praesent ut tellus
+              id orci gravida vehicula quis ac orci. 
+          </p>
+      </div>
+      <div class="col-4">
+          
+      </div>
+  </div>
+  <div class="row no-gutter">
+      <div class="col-6">
+          <p class="lead">
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec sit amet blandit nisl. Praesent ut tellus
+              id orci gravida vehicula quis ac orci. 
+          </p>
+          Praesent ut tellus id orci gravida vehicula quis ac orci. Ut congue ipsum ut tellus fermentum pretium. Nunc
+          hendrerit risus et viverra mollis. Sed quis feugiat quam. Phasellus pellentesque tempor purus, congue
+          egestas sem hendrerit in. Fusce pharetra metus quis lacus bibendum malesuada. Morbi ac dapibus ex.
+          Suspendisse potenti. Aliquam condimentum interdum tempus. Class aptent taciti sociosqu ad litora torquent
+          per conubia nostra, per inceptos himenaeos. Integer ac tincidunt sem.
+      </div>
+      <div class="col-6">
+          <ul class="list-group" style="text-align: center;">
+            <li class="list-group-item"><a href="{% url 'teams:match_list' %}">Matches</a></li>
+            <li class="list-group-item disabled" aria-disabled="true">Contestants</li>
+            <li class="list-group-item disabled" aria-disabled="true">Tournaments</li>
+            <li class="list-group-item disabled" aria-disabled="true">Venues</li>
+            <li class="list-group-item disabled" aria-disabled="true">Countries</li>
+          </ul>
+      </div>
+  </div>
+</div>
+{% endblock %}

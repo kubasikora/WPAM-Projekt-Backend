@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+
+{% block main %}
+
+
+{% load static %}
+<div style="margin-top: 2rem;">
+<div class="container">
+    <div clas="row" style="padding-bottom: 1rem;">
+        <a href="{% url 'teams:home' %}">Back</a>
+    </div>
+{% block content %}{% endblock %}
+</div>
+</div>
+
+{% endblock %}
