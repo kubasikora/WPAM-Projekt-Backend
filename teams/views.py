@@ -100,7 +100,7 @@ class VenueListView(generic.ListView):
     template_name = "venue/list.html"
 
 
-"""Widok listy wszystkich obiektów"""
+"""Widok listy wszystkich zawodników"""
 class ContestantListView(generic.ListView):
     queryset = models.Contestant.objects.all()
     context_object_name = "contestants"
