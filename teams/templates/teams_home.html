@@ -29,10 +29,10 @@
       <div class="col-6">
           <ul class="list-group" style="text-align: center;">
             <li class="list-group-item"><a href="{% url 'teams:match_list' %}">Matches</a></li>
-            <li class="list-group-item disabled" aria-disabled="true">Contestants</li>
-            <li class="list-group-item disabled" aria-disabled="true">Tournaments</li>
-            <li class="list-group-item disabled" aria-disabled="true">Venues</li>
-            <li class="list-group-item disabled" aria-disabled="true">Countries</li>
+            <li class="list-group-item"><a href="{% url 'teams:contestant_list' %}">Contestants</a></li>
+            <li class="list-group-item"><a href="{% url 'teams:tournament_list' %}">Tournaments</a></li>
+            <li class="list-group-item"><a href="{% url 'teams:venue_list' %}">Venues</a></li>
+            <li class="list-group-item"><a href="{% url 'teams:country_list' %}">Countries</a></li>
           </ul>
       </div>
   </div>

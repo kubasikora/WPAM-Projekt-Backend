@@ -74,3 +74,35 @@ class MatchListView(generic.ListView):
     context_object_name = "matches"
     paginate_by = 50
     template_name = "match/list.html"
+
+
+"""Widok listy wszystkich zawodów"""
+class TournamentListView(generic.ListView):
+    queryset = models.Tournament.objects.all()
+    context_object_name = "tournaments"
+    paginate_by = 50
+    template_name = "tournament/list.html"
+
+
+"""Widok listy wszystkich krajów"""
+class CountryListView(generic.ListView):
+    queryset = models.Country.objects.all()
+    context_object_name = "countries"
+    paginate_by = 100
+    template_name = "country/list.html"
+
+
+"""Widok listy wszystkich obiektów"""
+class VenueListView(generic.ListView):
+    queryset = models.Venue.objects.all()
+    context_object_name = "venues"
+    paginate_by = 50
+    template_name = "venue/list.html"
+
+
+"""Widok listy wszystkich obiektów"""
+class ContestantListView(generic.ListView):
+    queryset = models.Contestant.objects.all()
+    context_object_name = "contestants"
+    paginate_by = 50
+    template_name = "contestant/list.html"

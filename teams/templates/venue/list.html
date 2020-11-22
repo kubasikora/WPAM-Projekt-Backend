@@ -1,0 +1,40 @@
+{% extends "teams.html" %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-6">
+            <h1>Venues list</h1>
+        </div>
+        <div class="col-6" style="text-align: right; margin-top: auto;">
+            <a>
+                <h5 style="color: black;">Add</h5>
+            </a>
+        </div>
+    </div>
+    <br />
+
+    <div class="row">
+        <div class="col">
+            <div>
+                {% if venues|length == 0 %}
+                <div>
+                    <p style="text-align: center; color: gray;">No venues</p>
+                </div>
+                {% else %}
+                {% for venue in venues %}
+                <div class="card" style="margin-bottom: 1rem;">
+                    {{ venue }}
+                </div>
+                {% endfor %}
+                {% endif %}
+                <div class="row">
+                    <div class="col-12">
+                        {% include "pagination.html" with page=matches %}
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
