@@ -22,8 +22,17 @@
                 </div>
                 {% else %}
                 {% for venue in venues %}
-                <div class="card" style="margin-bottom: 1rem;">
-                    {{ venue }}
+                <div class="card">
+                    <div class="card-header">
+                        <p class="mb-0 lead" style="text-align: left;">
+                            {{ venue.name }}
+                        </p>
+                    </div>
+                    <div class="card-content">
+                        <div style="margin-left: 20px;">
+                        {{ venue.city }} ({{ venue.country.code }}) <br/>
+                        </div>
+                    </div>
                 </div>
                 {% endfor %}
                 {% endif %}

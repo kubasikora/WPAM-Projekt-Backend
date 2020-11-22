@@ -48,6 +48,7 @@ class Contestant(models.Model):
 class Tournament(models.Model):
     name = models.CharField(verbose_name="Nazwa", max_length=30)
     created = models.DateTimeField(verbose_name="Czas dodania", auto_now_add=True)
+    dateOfStart = models.DateTimeField(verbose_name="Czas rozpoczęcia")
     sport = models.CharField(verbose_name="Dyscyplina", choices=Sport.choices, default=Sport.FOOTBALL, max_length=15)
     contestants = models.ManyToManyField(Contestant, blank=True, verbose_name="Uczestnicy")
     domestic = models.BooleanField(default=True, verbose_name="Liga krajowa")

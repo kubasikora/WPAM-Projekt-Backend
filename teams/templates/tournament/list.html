@@ -22,8 +22,27 @@
                 </div>
                 {% else %}
                 {% for tournament in tournaments %}
-                <div class="card" style="margin-bottom: 1rem;">
-                    {{ tournament }}
+                <div class="card">
+                    <div class="card-header">
+                        <p class="mb-0 lead" style="text-align: left;">
+                            {{ tournament.name }} 
+                        </p>
+                    </div>
+                    <div class="card-content">
+                        <div style="margin-left: 20px;">
+                        Date of start: {{ tournament.dateOfStart }} <br/>
+                        Discipline: {% if tournament.sport == 'FOOTBALL' %}
+                                        Piłka nożna
+                                    {% elif tournament.sport == 'TENNIS' %}
+                                        Tenis
+                                    {% elif tournament.sport == 'VOLLEYBALL' %}
+                                        Siatkówka
+                                    {% else %}
+                                        {{ tournament.sport }}
+                                    {% endif %} <br/>
+                        Number of contestants: {{ tournament.numOfContestants }}
+                        </div>
+                    </div>
                 </div>
                 {% endfor %}
                 {% endif %}

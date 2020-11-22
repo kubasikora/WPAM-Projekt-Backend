@@ -83,6 +83,12 @@ class TournamentListView(generic.ListView):
     paginate_by = 50
     template_name = "tournament/list.html"
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        for tournament in context["object_list"]:
+            tournament.numOfContestants = len(tournament.contestants.all())
+        return context
+
 
 """Widok listy wszystkich krajów"""
 class CountryListView(generic.ListView):
