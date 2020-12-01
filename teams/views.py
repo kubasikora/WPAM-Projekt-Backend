@@ -84,6 +84,7 @@ class MatchAddView(generic.CreateView):
     fields = "__all__"
     success_url = reverse_lazy("teams:match_list")
 
+
 """Widok listy wszystkich zawodów"""
 class TournamentListView(generic.ListView):
     queryset = models.Tournament.objects.all()
@@ -98,6 +99,14 @@ class TournamentListView(generic.ListView):
         return context
 
 
+"""Widok dodawania zawodów"""
+class TournamentAddView(generic.CreateView):
+    model = models.Tournament
+    template_name = "tournament/add.html"
+    fields = "__all__"
+    success_url = reverse_lazy("teams:tournament_list")
+
+
 """Widok listy wszystkich krajów"""
 class CountryListView(generic.ListView):
     queryset = models.Country.objects.all()
@@ -106,12 +115,28 @@ class CountryListView(generic.ListView):
     template_name = "country/list.html"
 
 
-"""Widok listy wszystkich obiektów"""
+"""Widok dodawania kraju"""
+class CountryAddView(generic.CreateView):
+    model = models.Country
+    template_name = "country/add.html"
+    fields = "__all__"
+    success_url = reverse_lazy("teams:country_list")
+
+
+"""Widok listy wszystkich obiektów sportowych"""
 class VenueListView(generic.ListView):
     queryset = models.Venue.objects.all()
     context_object_name = "venues"
     paginate_by = 50
     template_name = "venue/list.html"
+
+
+"""Widok dodawania obiektów sportowych"""
+class VenueAddView(generic.CreateView):
+    model = models.Venue
+    template_name = "venue/add.html"
+    fields = "__all__"
+    success_url = reverse_lazy("teams:venue_list")
 
 
 """Widok listy wszystkich zawodników"""
@@ -120,3 +145,11 @@ class ContestantListView(generic.ListView):
     context_object_name = "contestants"
     paginate_by = 50
     template_name = "contestant/list.html"
+
+
+"""Widok dodawania zawodników"""
+class ContestantAddView(generic.CreateView):
+    model = models.Contestant
+    template_name = "contestant/add.html"
+    fields = "__all__"
+    success_url = reverse_lazy("teams:contestant_list")
