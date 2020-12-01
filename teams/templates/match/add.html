@@ -1,0 +1,28 @@
+{% extends "teams.html" %}
+
+{% block content %}
+<div class="row">
+    <div class="col-6">
+        <h1>Add new match</h1>
+    </div>
+</div>
+<br />
+
+<div class="row">
+    <div class="col">
+        <div>
+            <form action="" method="post">
+                {% csrf_token %}
+                <table>
+                    {{ form.as_table }}
+                </table>
+                <div style="float:right">
+                    <input class="btn btn-dark" type="submit" value="Dodaj">
+
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+</div>
+{% endblock %}

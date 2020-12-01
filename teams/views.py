@@ -3,6 +3,7 @@ from django.views import generic
 from rest_framework import generics
 from rest_framework.schemas.openapi import AutoSchema
 from teams import models, serializers
+from django.urls import reverse_lazy
 
 # rest endpoint views
 
@@ -75,6 +76,13 @@ class MatchListView(generic.ListView):
     paginate_by = 50
     template_name = "match/list.html"
 
+
+"""Widok dodawania spotkania"""
+class MatchAddView(generic.CreateView):
+    model = models.Match
+    template_name = "match/add.html"
+    fields = "__all__"
+    success_url = reverse_lazy("teams:match_list")
 
 """Widok listy wszystkich zawodów"""
 class TournamentListView(generic.ListView):
