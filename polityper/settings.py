@@ -46,7 +46,8 @@ INSTALLED_APPS = [
     'allauth.account',
     'rest_auth.registration',
     # our apps
-    'teams'
+    'teams',
+    'betting'
 ]
 
 REST_FRAMEWORK = {
