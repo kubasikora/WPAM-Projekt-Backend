@@ -33,6 +33,7 @@ urlpatterns = [
     path('auth/verify', verify_jwt_token),
     # apps endpoints
     path('api/teams/', include("teams.api", namespace='teams-api')),
+    path('api/betting/', include("betting.api", namespace='betting-api')),
     # apps views
     path('', TemplateView.as_view(template_name='home.html'), name='home'),
     path('teams/', include("teams.urls", namespace='teams'))
