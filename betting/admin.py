@@ -4,8 +4,8 @@ from betting import models
 
 @admin.register(models.Bet)
 class BetAdminView(admin.ModelAdmin):
-    list_display = ("user", "date")
-    search_fields = ("user", )
+    list_display = ("participant", "date")
+    search_fields = ("participant", )
 
 
 @admin.register(models.League)
