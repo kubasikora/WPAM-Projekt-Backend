@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+{% block title %}Log in{% endblock %}
+
+{% block main %}
+<div class="container">
+    <div class="card">
+        <div class="card-body">
+            <h2>Log in into CMS</h2>
+            <hr />
+            <form method="post">
+                {% csrf_token %}
+                <div class="container">
+                    <div class="row">
+                        <div class="col-2" style="margin-top: auto; font-size: 20px;">Login:</div>
+                        <div class="col-10">{{ form.username }}</div>
+                    </div>
+
+                    <div class="row" style="margin-top: 1rem;">
+                        <div class="col-2" style="margin-top: auto; font-size: 20px;">Password:</div>
+                        <div class="col-10">{{ form.password }}</div>
+                    </div>
+
+                    {% if form.errors %}
+                    <div class="row" style="margin-top: 1rem;">
+                        {% for error in form.non_field_errors %}
+                        <div class="col-12" style="margin-top: auto; font-size: 16px; color: red;">{{ error }}</div>
+                        {% endfor %}
+                    </div>
+                    {% endif %}
+
+                    <div class="row" style="margin-top: 2rem;">
+                        <div class="col">
+                            <button class="btn btn-dark" type="submit">Log in</button>
+                        </div>
+                    </div>
+                </div>
+
+            </form>
+            <br />
+        </div>
+    </div>
+</div>
+{% endblock %}
