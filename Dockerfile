@@ -7,6 +7,7 @@ RUN pip install -r requirements.txt
 COPY manage.py .
 COPY polityper/ ./polityper/
 COPY teams/ ./teams/
+COPY betting/ ./betting/
 
 COPY docker-entrypoint.sh .
 CMD ["/bin/bash", "docker-entrypoint.sh"]
