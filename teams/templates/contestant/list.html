@@ -1,55 +1,60 @@
 {% extends "teams.html" %}
 
 {% block content %}
-    <div class="row">
-        <div class="col-6">
-            <h1>Contestants list</h1>
-        </div>
-        <div class="col-6" style="text-align: right; margin-top: auto;">
-            <a href="{% url 'teams:contestant_add' %}">
-                <h5 style="color: black;">Add</h5>
-            </a>
-        </div>
+<div clas="row" style="padding-bottom: 1rem;">
+    <a href="{% url 'teams:home' %}">Back</a>
+</div>
+<div class="row">
+    <div class="col-6">
+        <h1>Contestants list</h1>
     </div>
-    <br />
+    <div class="col-6" style="text-align: right; margin-top: auto;">
+        <a href="{% url 'teams:contestant_add' %}">
+            <h5 style="color: black;">Add</h5>
+        </a>
+    </div>
+</div>
+<br />
 
-    <div class="row">
-        <div class="col">
+<div class="row">
+    <div class="col">
+        <div>
+            {% if contestants|length == 0 %}
             <div>
-                {% if contestants|length == 0 %}
-                <div>
-                    <p style="text-align: center; color: gray;">No contestants</p>
-                </div>
-                {% else %}
-                {% for contestant in contestants %}
-                <div class="card">
-                    <div class="card-header">
-                        <p class="mb-0 lead" style="text-align: left;">
+                <p style="text-align: center; color: gray;">No contestants</p>
+            </div>
+            {% else %}
+            {% for contestant in contestants %}
+            <div class="card">
+                <div class="card-header">
+                    <a href="{% url 'teams:contestant_update' contestant.id %}">
+                        <p class="mb-0 lead" style="text-align: left; text-decoration: none; color: black">
                             {{ contestant.name }} ({{ contestant.country.code }})
                         </p>
-                        <span style="text-align: left; font-style: italic;">
-                            {% if contestant.sport == 'FOOTBALL' %}
-                                Piłka nożna
-                            {% elif contestant.sport == 'TENNIS' %}
-                                Tenis
-                            {% elif contestant.sport == 'VOLLEYBALL' %}
-                                Siatkówka
-                            {% else %}
-                                {{ contestant.sport }}
-                            {% endif %}
-                        </span>
-                    </div>
+                    </a> 
+                    <span style="text-align: left; font-style: italic;">
+                        {% if contestant.sport == 'FOOTBALL' %}
+                        Piłka nożna
+                        {% elif contestant.sport == 'TENNIS' %}
+                        Tenis
+                        {% elif contestant.sport == 'VOLLEYBALL' %}
+                        Siatkówka
+                        {% else %}
+                        {{ contestant.sport }}
+                        {% endif %}
+                    </span>
                 </div>
-                {% endfor %}
-                {% endif %}
-                <div class="row">
-                    <div class="col-12">
-                        {% include "pagination.html" with page=matches %}
-                    </div>
-                </div>
-
             </div>
+            {% endfor %}
+            {% endif %}
+            <div class="row">
+                <div class="col-12">
+                    {% include "pagination.html" with page=matches %}
+                </div>
+            </div>
+
         </div>
     </div>
+</div>
 </div>
 {% endblock %}

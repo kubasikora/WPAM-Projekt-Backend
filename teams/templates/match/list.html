@@ -1,6 +1,9 @@
 {% extends "teams.html" %}
 
 {% block content %}
+<div clas="row" style="padding-bottom: 1rem;">
+    <a href="{% url 'teams:home' %}">Back</a>
+</div>
     <div class="row">
         <div class="col-6">
             <h1>Matches list</h1>
@@ -24,17 +27,19 @@
                 {% for match in matches %}
                 <div class="card">
                     <div class="card-header">
+                        <a href="{% url 'teams:match_update' match.id %}">
                         {% if not match.finished %}
-                        <p class="mb-0 lead" style="text-align: center;">
+                        <p class="mb-0 lead" style="text-align: center; text-decoration: none; color: black">
                             {{ match.playerOne }} - {{ match.playerTwo }}
                         </p>
                         {% else %}
-                        <p class="mb-0 lead" style="text-align: center;">
+                        <p class="mb-0 lead" style="text-align: center; text-decoration: none; color: black">
                             <span class="{% if match.outcome == '1' %} bold {% endif %}">{{ match.playerOne }}</span>
                             {{ match.playerOneResult }} - {{ match.playerTwoResult }}
                             <span class="{% if match.outcome == '2' %} bold {% endif %}">{{ match.playerTwo }}</span>
                         </p>
                         {% endif %}
+                        </a>
                     </div>
                     <div class="card-content" style="text-align: center;">
                         {{ match.dateOfStart | date:"d.m.y H:i"}}<br />

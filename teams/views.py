@@ -85,6 +85,15 @@ class MatchAddView(generic.CreateView):
     success_url = reverse_lazy("teams:match_list")
 
 
+"""Widok edycji spotkania"""
+class MatchUpdateView(generic.UpdateView):
+    model = models.Match
+    template_name = "match/update.html"
+    fields = "__all__"
+    success_url = reverse_lazy("teams:match_list")
+    context_object_namev = "match"
+
+
 """Widok listy wszystkich zawodów"""
 class TournamentListView(generic.ListView):
     queryset = models.Tournament.objects.all()
@@ -107,6 +116,15 @@ class TournamentAddView(generic.CreateView):
     success_url = reverse_lazy("teams:tournament_list")
 
 
+"""Widok edycji zawodów"""
+class TournamentUpdateView(generic.UpdateView):
+    model = models.Tournament
+    template_name = "tournament/update.html"
+    fields = "__all__"
+    success_url = reverse_lazy("teams:tournament_list")
+    context_object_namev = "tournament"
+
+
 """Widok listy wszystkich krajów"""
 class CountryListView(generic.ListView):
     queryset = models.Country.objects.all()
@@ -121,6 +139,15 @@ class CountryAddView(generic.CreateView):
     template_name = "country/add.html"
     fields = "__all__"
     success_url = reverse_lazy("teams:country_list")
+
+
+"""Widok edycji kraju"""
+class CountryUpdateView(generic.UpdateView):
+    model = models.Country
+    template_name = "country/update.html"
+    fields = "__all__"
+    success_url = reverse_lazy("teams:country_list")
+    context_object_namev = "country"
 
 
 """Widok listy wszystkich obiektów sportowych"""
@@ -139,6 +166,15 @@ class VenueAddView(generic.CreateView):
     success_url = reverse_lazy("teams:venue_list")
 
 
+"""Widok edycji obiektów sportowych"""
+class VenueUpdateView(generic.UpdateView):
+    model = models.Venue
+    template_name = "venue/update.html"
+    fields = "__all__"
+    success_url = reverse_lazy("teams:venue_list")
+    context_object_namev = "venue"
+
+
 """Widok listy wszystkich zawodników"""
 class ContestantListView(generic.ListView):
     queryset = models.Contestant.objects.all()
@@ -153,3 +189,12 @@ class ContestantAddView(generic.CreateView):
     template_name = "contestant/add.html"
     fields = "__all__"
     success_url = reverse_lazy("teams:contestant_list")
+
+
+"""Widok edycji zawodników"""
+class ContestantUpdateView(generic.UpdateView):
+    model = models.Contestant
+    template_name = "contestant/update.html"
+    fields = "__all__"
+    success_url = reverse_lazy("teams:contestant_list")
+    context_object_namev = "contestant"

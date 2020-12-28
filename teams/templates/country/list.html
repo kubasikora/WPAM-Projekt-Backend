@@ -1,47 +1,52 @@
 {% extends "teams.html" %}
 
 {% block content %}
-    <div class="row">
-        <div class="col-6">
-            <h1>Countries list</h1>
-        </div>
-        <div class="col-6" style="text-align: right; margin-top: auto;">
-            <a href="{% url 'teams:country_add' %}">
-                <h5 style="color: black;">Add</h5>
-            </a>
-        </div>
+<div clas="row" style="padding-bottom: 1rem;">
+    <a href="{% url 'teams:home' %}">Back</a>
+</div>
+<div class="row">
+    <div class="col-6">
+        <h1>Countries list</h1>
     </div>
-    <br />
+    <div class="col-6" style="text-align: right; margin-top: auto;">
+        <a href="{% url 'teams:country_add' %}">
+            <h5 style="color: black;">Add</h5>
+        </a>
+    </div>
+</div>
+<br />
 
-    <div class="row">
-        <div class="col">
+<div class="row">
+    <div class="col">
+        <div>
+            {% if countries|length == 0 %}
             <div>
-                {% if countries|length == 0 %}
-                <div>
-                    <p style="text-align: center; color: gray;">No countries</p>
-                </div>
-                {% else %}
-                {% for country in countries %}
-                <div class="card">
-                    <div class="card-header">
-                        <p class="mb-0 lead" style="text-align: left;">
-                            {{ country.name }} 
-                        </p>
-                        <span style="text-align: left; font-style: italic;">
-                            {{ country.code }}
-                        </span>
-                    </div>
-                </div>
-                {% endfor %}
-                {% endif %}
-                <div class="row">
-                    <div class="col-12">
-                        {% include "pagination.html" with page=matches %}
-                    </div>
-                </div>
-
+                <p style="text-align: center; color: gray;">No countries</p>
             </div>
+            {% else %}
+            {% for country in countries %}
+            <div class="card">
+                <div class="card-header">
+                    <a href="{% url 'teams:country_update' country.id %}">
+                        <p class="mb-0 lead" style="text-align: left; text-decoration: none; color: black">
+                            {{ country.name }}
+                        </p>
+                    </a> 
+                    <span style="text-align: left; font-style: italic;">
+                        {{ country.code }}
+                    </span>
+                </div>
+            </div>
+            {% endfor %}
+            {% endif %}
+            <div class="row">
+                <div class="col-12">
+                    {% include "pagination.html" with page=matches %}
+                </div>
+            </div>
+
         </div>
     </div>
+</div>
 </div>
 {% endblock %}

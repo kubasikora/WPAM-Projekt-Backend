@@ -24,6 +24,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = os.getenv("SECRET_KEY", '$lff9%frhmm*)u1sa4!le@ddgpvj(d^1u_v3ynt$fij2ytt@l8')
 
+LOGIN_URL = "/account/login"
 LOGIN_REDIRECT_URL = "/"
 LOGOUT_REDIRECT_URL = "/"
 

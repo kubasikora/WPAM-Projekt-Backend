@@ -1,6 +1,9 @@
 {% extends "teams.html" %}
 
 {% block content %}
+<div clas="row" style="padding-bottom: 1rem;">
+    <a href="{% url 'teams:tournament_list' %}">Back</a>
+</div>
 <div class="row">
     <div class="col-6">
         <h1>Add new tournament</h1>
@@ -17,7 +20,7 @@
                     {{ form.as_table }}
                 </table>
                 <div style="float:right">
-                    <input class="btn btn-dark" type="submit" value="Dodaj">
+                    <input class="btn btn-dark" type="submit" value="Add tournament">
                 </div>
             </form>
         </div>

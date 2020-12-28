@@ -2,8 +2,8 @@ from django.db import models
 from django.utils.translation import gettext_lazy as _
 
 class Country(models.Model):
-    name = models.CharField(verbose_name="Nazwa", max_length=20)
-    code = models.CharField(verbose_name="Skrót", max_length=4)
+    name = models.CharField(verbose_name="Name", max_length=20)
+    code = models.CharField(verbose_name="Code", max_length=4)
 
     def __str__(self):
         return f"{self.name}"
@@ -20,11 +20,11 @@ class Sport(models.TextChoices):
 
 
 class Venue(models.Model):
-    name = models.CharField(verbose_name="Nazwa obiektu", max_length=100)
-    city = models.CharField(verbose_name="Miasto", max_length=25)
-    country = models.ForeignKey(Country, on_delete=models.CASCADE, verbose_name="Kraj")
-    longitude = models.FloatField(verbose_name="Długość geograficzna", max_length=10)
-    latitude = models.FloatField(verbose_name="Wysokość geograficzna", max_length=10)
+    name = models.CharField(verbose_name="Name", max_length=100)
+    city = models.CharField(verbose_name="City", max_length=25)
+    country = models.ForeignKey(Country, on_delete=models.CASCADE, verbose_name="Country")
+    longitude = models.FloatField(verbose_name="Longitude", max_length=10)
+    latitude = models.FloatField(verbose_name="Latitude", max_length=10)
 
     class Meta:
         ordering = ("name",)
@@ -33,10 +33,10 @@ class Venue(models.Model):
         return f"{self.name} ({self.city})"
 
 class Contestant(models.Model):
-    name = models.CharField(verbose_name="Nazwa", max_length=100)
-    created = models.DateTimeField(verbose_name="Czas dodania", auto_now_add=True)
-    country = models.ForeignKey(Country, on_delete=models.CASCADE, verbose_name="Kraj pochodzenia", related_name="teams")
-    sport = models.CharField(verbose_name="Dyscyplina", choices=Sport.choices, default=Sport.FOOTBALL, max_length=15)
+    name = models.CharField(verbose_name="Name", max_length=100)
+    created = models.DateTimeField(verbose_name="Created", auto_now_add=True)
+    country = models.ForeignKey(Country, on_delete=models.CASCADE, verbose_name="Country", related_name="teams")
+    sport = models.CharField(verbose_name="Sport", choices=Sport.choices, default=Sport.FOOTBALL, max_length=15)
 
     def __str__(self):
         return f"{self.name} ({self.country.code})"
@@ -46,13 +46,13 @@ class Contestant(models.Model):
 
 
 class Tournament(models.Model):
-    name = models.CharField(verbose_name="Nazwa", max_length=30)
-    created = models.DateTimeField(verbose_name="Czas dodania", auto_now_add=True)
-    dateOfStart = models.DateTimeField(verbose_name="Czas rozpoczęcia")
-    sport = models.CharField(verbose_name="Dyscyplina", choices=Sport.choices, default=Sport.FOOTBALL, max_length=15)
-    contestants = models.ManyToManyField(Contestant, blank=True, verbose_name="Uczestnicy")
-    domestic = models.BooleanField(default=True, verbose_name="Liga krajowa")
-    finished = models.BooleanField(default=False, verbose_name="Ukończony")
+    name = models.CharField(verbose_name="Name", max_length=30)
+    created = models.DateTimeField(verbose_name="Created", auto_now_add=True)
+    dateOfStart = models.DateTimeField(verbose_name="Time of start")
+    sport = models.CharField(verbose_name="Sport", choices=Sport.choices, default=Sport.FOOTBALL, max_length=15)
+    contestants = models.ManyToManyField(Contestant, blank=True, verbose_name="Contestants")
+    domestic = models.BooleanField(default=True, verbose_name="Is domestic league")
+    finished = models.BooleanField(default=False, verbose_name="Is finished")
 
     def __str__(self):
         return f"{self.name}"
@@ -69,16 +69,16 @@ class Result(models.TextChoices):
 
 
 class Match(models.Model):
-    tournament = models.ForeignKey(Tournament, on_delete=models.CASCADE, verbose_name="Zawody")
-    playerOne = models.ForeignKey(Contestant, on_delete=models.CASCADE, verbose_name="Zawodnik 1", related_name="playerOnes")
-    playerTwo = models.ForeignKey(Contestant, on_delete=models.CASCADE, verbose_name="Zawodnik 2", related_name="playerTwos")
-    dateOfStart = models.DateTimeField(verbose_name="Czas rozpoczęcia")
-    sport = models.CharField(verbose_name="Dyscyplina", choices=Sport.choices, default=Sport.FOOTBALL, max_length=15)
-    playerOneResult = models.PositiveIntegerField(verbose_name="Wynik zawodnika 1", default=0)
-    playerTwoResult = models.PositiveIntegerField(verbose_name="Wynik zawodnika 2", default=0)
-    outcome = models.CharField(verbose_name="Rezultat", choices=Result.choices, default=Result.NOT_PLAYED, max_length=1)
-    finished = models.BooleanField(default=False, verbose_name="Zakończony")
-    venue = models.ForeignKey(Venue, on_delete=models.CASCADE, verbose_name="Obiekt", null=True)
+    tournament = models.ForeignKey(Tournament, on_delete=models.CASCADE, verbose_name="Tournament")
+    playerOne = models.ForeignKey(Contestant, on_delete=models.CASCADE, verbose_name="Contestant 1", related_name="playerOnes")
+    playerTwo = models.ForeignKey(Contestant, on_delete=models.CASCADE, verbose_name="Contestant 2", related_name="playerTwos")
+    dateOfStart = models.DateTimeField(verbose_name="Time of start")
+    sport = models.CharField(verbose_name="Sport", choices=Sport.choices, default=Sport.FOOTBALL, max_length=15)
+    playerOneResult = models.PositiveIntegerField(verbose_name="Score 1", default=0)
+    playerTwoResult = models.PositiveIntegerField(verbose_name="Score 2", default=0)
+    outcome = models.CharField(verbose_name="Result", choices=Result.choices, default=Result.NOT_PLAYED, max_length=1)
+    finished = models.BooleanField(default=False, verbose_name="Is finished")
+    venue = models.ForeignKey(Venue, on_delete=models.CASCADE, verbose_name="Venue", null=True, blank=True)
 
     class Meta:
         ordering = ("-dateOfStart",)

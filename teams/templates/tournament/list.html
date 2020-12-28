@@ -1,59 +1,64 @@
 {% extends "teams.html" %}
 
 {% block content %}
-    <div class="row">
-        <div class="col-6">
-            <h1>Tournaments list</h1>
-        </div>
-        <div class="col-6" style="text-align: right; margin-top: auto;">
-            <a href="{% url 'teams:tournament_add' %}">
-                <h5 style="color: black;">Add</h5>
-            </a>
-        </div>
+<div clas="row" style="padding-bottom: 1rem;">
+    <a href="{% url 'teams:home' %}">Back</a>
+</div>
+<div class="row">
+    <div class="col-6">
+        <h1>Tournaments list</h1>
     </div>
-    <br />
+    <div class="col-6" style="text-align: right; margin-top: auto;">
+        <a href="{% url 'teams:tournament_add' %}">
+            <h5 style="color: black;">Add</h5>
+        </a>
+    </div>
+</div>
+<br />
 
-    <div class="row">
-        <div class="col">
+<div class="row">
+    <div class="col">
+        <div>
+            {% if tournaments|length == 0 %}
             <div>
-                {% if tournaments|length == 0 %}
-                <div>
-                    <p style="text-align: center; color: gray;">No tournaments</p>
-                </div>
-                {% else %}
-                {% for tournament in tournaments %}
-                <div class="card">
-                    <div class="card-header">
-                        <p class="mb-0 lead" style="text-align: left;">
-                            {{ tournament.name }} 
-                        </p>
-                    </div>
-                    <div class="card-content">
-                        <div style="margin-left: 20px;">
-                        Date of start: {{ tournament.dateOfStart }} <br/>
-                        Discipline: {% if tournament.sport == 'FOOTBALL' %}
-                                        Piłka nożna
-                                    {% elif tournament.sport == 'TENNIS' %}
-                                        Tenis
-                                    {% elif tournament.sport == 'VOLLEYBALL' %}
-                                        Siatkówka
-                                    {% else %}
-                                        {{ tournament.sport }}
-                                    {% endif %} <br/>
-                        Number of contestants: {{ tournament.numOfContestants }}
-                        </div>
-                    </div>
-                </div>
-                {% endfor %}
-                {% endif %}
-                <div class="row">
-                    <div class="col-12">
-                        {% include "pagination.html" with page=matches %}
-                    </div>
-                </div>
-
+                <p style="text-align: center; color: gray;">No tournaments</p>
             </div>
+            {% else %}
+            {% for tournament in tournaments %}
+            <div class="card">
+                <div class="card-header">
+                    <a href="{% url 'teams:tournament_update' tournament.id %}">
+                        <p class="mb-0 lead" style="text-align: left; text-decoration: none; color: black">
+                            {{ tournament.name }}
+                        </p>
+                    </a>
+                </div>
+                <div class="card-content">
+                    <div style="margin-left: 20px;">
+                        Date of start: {{ tournament.dateOfStart }} <br />
+                        Discipline: {% if tournament.sport == 'FOOTBALL' %}
+                        Piłka nożna
+                        {% elif tournament.sport == 'TENNIS' %}
+                        Tenis
+                        {% elif tournament.sport == 'VOLLEYBALL' %}
+                        Siatkówka
+                        {% else %}
+                        {{ tournament.sport }}
+                        {% endif %} <br />
+                        Number of contestants: {{ tournament.numOfContestants }}
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+            {% endif %}
+            <div class="row">
+                <div class="col-12">
+                    {% include "pagination.html" with page=matches %}
+                </div>
+            </div>
+
         </div>
     </div>
+</div>
 </div>
 {% endblock %}
