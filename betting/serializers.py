@@ -17,15 +17,6 @@ class UserSerializer(serializers.ModelSerializer):
         model = User
         fields = ('username', 'first_name', 'last_name')
 
-
-class ParticipantSerializer(serializers.ModelSerializer):
-    user = UserSerializer()
-
-    class Meta:
-        model = models.Participant
-        fields = '__all__'
-
-
 class LeagueSerializer(serializers.ModelSerializer):
     tournament = TournamentSnippetSerializer()
     contestants = UserSerializer(many=True, read_only=True)
@@ -34,3 +25,10 @@ class LeagueSerializer(serializers.ModelSerializer):
         model = models.League
         fields = '__all__'
 
+
+class ParticipantSerializer(serializers.ModelSerializer):
+    user = UserSerializer()
+    league = LeagueSerializer()
+    class Meta:
+        model = models.Participant
+        fields = '__all__'

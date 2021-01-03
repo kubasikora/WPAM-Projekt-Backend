@@ -19,7 +19,8 @@ class Participant(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE,verbose_name="Użytkownik")
     points = models.PositiveIntegerField(verbose_name="Liczba punktów",default=0)
     joined = models.DateTimeField(verbose_name="Data dołączenia do ligi", auto_now_add=True)
-    league = models.ForeignKey(League, verbose_name="Liga obstawiania", on_delete=models.CASCADE)
+    league = models.ForeignKey(League, verbose_name="Liga obstawiania",
+                               on_delete=models.CASCADE, related_name='participants')
 
     def __str__(self):
         return f'{self.user} in {self.league}'

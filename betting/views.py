@@ -23,6 +23,20 @@ class UserBetsListRESTView(generics.ListAPIView):
     def get_queryset(self):
         return models.Bet.objects.filter(participant__user=self.request.user)
 
+
+class UserBetsInLeagueListRESTView(generics.ListAPIView):
+    serializer_class = serializers.BetSerializer
+    schema = AutoSchema(operation_id_base='user_bets_in_league', tags=['betting'])
+
+    filter_params = ('league',)
+
+    def get_queryset(self):
+        leagueId = self.request.query_params.get('league', None)
+        return models.Bet.objects.filter(participant__user=self.request.user,
+                                         participant__league=leagueId)
+
+
+
 class LeagueListRESTView(generics.ListAPIView):
     queryset = models.League.objects.all()
     serializer_class = serializers.LeagueSerializer
@@ -33,3 +47,12 @@ class ParticipantListRESTView(generics.ListAPIView):
     queryset = models.Participant.objects.all()
     serializer_class = serializers.ParticipantSerializer
     schema = AutoSchema(tags=['betting'])
+
+
+class ParticipantsOfUserListRESTView(generics.ListAPIView):
+    serializer_class = serializers.ParticipantSerializer
+    schema = AutoSchema(operation_id_base='user_participants', tags=['betting'])
+
+    def get_queryset(self):
+        print(self.request.user)
+        return models.Participant.objects.filter(user=self.request.user)
