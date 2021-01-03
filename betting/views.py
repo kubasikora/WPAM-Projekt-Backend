@@ -4,7 +4,6 @@ from betting import models, serializers
 
 
 # rest endpoint views
-
 """Widok listy wszystkich dostępnych zakładów"""
 class BetListRESTView(generics.ListAPIView):
     queryset = models.Bet.objects.all()
@@ -12,14 +11,17 @@ class BetListRESTView(generics.ListAPIView):
     schema = AutoSchema(operation_id_base='TBD', tags=['betting'])
 
 
+class BetPostRESTView(generics.CreateAPIView):
+    queryset = models.Bet.objects.all()
+    serializer_class = serializers.BetShortSerializer
+    schema = AutoSchema(operation_id_base='post_bet', tags=['betting'])
+
+
 """Widok listy wszystkich dostępnych zakładów konkretnego użytkownika"""
 class UserBetsListRESTView(generics.ListAPIView):
     serializer_class = serializers.BetSerializer
     schema = AutoSchema(operation_id_base='user_bets', tags=['betting'])
 
-    """ Żeby filtrować wynik po użytkowniku trzeba nadpisać funkcję get_queryset
-        i tam można działać cuda
-    """
     def get_queryset(self):
         return models.Bet.objects.filter(participant__user=self.request.user)
 
@@ -36,11 +38,16 @@ class UserBetsInLeagueListRESTView(generics.ListAPIView):
                                          participant__league=leagueId)
 
 
-
 class LeagueListRESTView(generics.ListAPIView):
     queryset = models.League.objects.all()
     serializer_class = serializers.LeagueSerializer
     schema = AutoSchema(tags=['betting'])
+
+
+class LeaguePostRESTView(generics.CreateAPIView):
+    queryset = models.League.objects.all()
+    serializer_class = serializers.LeagueShortSerializer
+    schema = AutoSchema(operation_id_base='post_league', tags=['betting'])
 
 
 class ParticipantListRESTView(generics.ListAPIView):
@@ -49,10 +56,25 @@ class ParticipantListRESTView(generics.ListAPIView):
     schema = AutoSchema(tags=['betting'])
 
 
+class ParticipantPostRESTView(generics.CreateAPIView):
+    queryset = models.Participant.objects.all()
+    serializer_class = serializers.ParticipantShortSerializer
+    schema = AutoSchema(operation_id_base='post_participant', tags=['betting'])
+
+
 class ParticipantsOfUserListRESTView(generics.ListAPIView):
     serializer_class = serializers.ParticipantSerializer
     schema = AutoSchema(operation_id_base='user_participants', tags=['betting'])
 
     def get_queryset(self):
-        print(self.request.user)
         return models.Participant.objects.filter(user=self.request.user)
+
+
+class ParticipantOfUserForLeagueListRESTView(generics.ListAPIView):
+    serializer_class = serializers.ParticipantSerializer
+    schema = AutoSchema(operation_id_base='user_participants', tags=['betting'])
+    filter_params = ('league',)
+    def get_queryset(self):
+        leagueId = self.request.query_params.get('league', None)
+        return models.Participant.objects.filter(user=self.request.user,
+                                                 league=leagueId)

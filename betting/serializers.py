@@ -11,6 +11,12 @@ class BetSerializer(serializers.ModelSerializer):
         model = models.Bet
         fields = '__all__'
 
+class BetShortSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = models.Bet
+        fields = '__all__'
+
+
 
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
@@ -19,8 +25,12 @@ class UserSerializer(serializers.ModelSerializer):
 
 class LeagueSerializer(serializers.ModelSerializer):
     tournament = TournamentSnippetSerializer()
-    contestants = UserSerializer(many=True, read_only=True)
+    class Meta:
+        model = models.League
+        fields = '__all__'
 
+
+class LeagueShortSerializer(serializers.ModelSerializer):
     class Meta:
         model = models.League
         fields = '__all__'
@@ -32,3 +42,10 @@ class ParticipantSerializer(serializers.ModelSerializer):
     class Meta:
         model = models.Participant
         fields = '__all__'
+
+
+class ParticipantShortSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = models.Participant
+        fields = '__all__'
+
