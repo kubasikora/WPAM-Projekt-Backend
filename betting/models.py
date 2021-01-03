@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
+import uuid
 from teams.models import Match, Tournament
 
 
@@ -7,9 +8,10 @@ class League(models.Model):
     name = models.CharField(verbose_name="Nazwa", max_length=30)
     created = models.DateTimeField(verbose_name="Data dodania", auto_now_add=True)
     tournament = models.ForeignKey(Tournament, on_delete=models.CASCADE, verbose_name="Zawody")
+    leagueKey = models.CharField(verbose_name="Key", max_length=30, default=uuid.uuid4().hex[:6].upper(), unique=True)
 
     def __str__(self):
-        return f'{self.name} in {self.tournament}'
+        return f'{self.name} in {self.tournament} with key {self.leagueKey}'
 
     class Meta:
         ordering = ("-created",)
