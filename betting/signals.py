@@ -14,5 +14,4 @@ def createPastMatches(sender, instance, created, **kwargs):
         tournament = instance.league.tournament
         for match in tournament.matches.get_queryset():
             bet = Bet(match=match, participant=instance)
-            print(f"Creating {bet}")
             bet.save()

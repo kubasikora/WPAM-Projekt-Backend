@@ -32,9 +32,10 @@ class Participant(models.Model):
 
 
 class Bet(models.Model):
+    cashout = models.BooleanField(verbose_name="Czy policzony", default=False)
     valid = models.BooleanField(verbose_name="Ważność", default=False)
     date = models.DateTimeField(verbose_name="Data dodania", auto_now_add=True)
-    match = models.ForeignKey(Match, on_delete=models.CASCADE, verbose_name="Mecz")
+    match = models.ForeignKey(Match, on_delete=models.CASCADE, verbose_name="Mecz", related_name="bets")
     participant = models.ForeignKey(Participant, on_delete=models.CASCADE, verbose_name="Członek ligi", related_name="bets")
     playerOnePrediction = models.PositiveIntegerField(verbose_name="Wynik zawodnika 1", default=0)
     playerTwoPrediction = models.PositiveIntegerField(verbose_name="Wynik zawodnika 2", default=0)
