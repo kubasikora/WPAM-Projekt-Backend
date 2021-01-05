@@ -69,7 +69,7 @@ class Result(models.TextChoices):
 
 
 class Match(models.Model):
-    tournament = models.ForeignKey(Tournament, on_delete=models.CASCADE, verbose_name="Tournament")
+    tournament = models.ForeignKey(Tournament, on_delete=models.CASCADE, verbose_name="Tournament", related_name="matches")
     playerOne = models.ForeignKey(Contestant, on_delete=models.CASCADE, verbose_name="Contestant 1", related_name="playerOnes")
     playerTwo = models.ForeignKey(Contestant, on_delete=models.CASCADE, verbose_name="Contestant 2", related_name="playerTwos")
     dateOfStart = models.DateTimeField(verbose_name="Time of start")
