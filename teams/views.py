@@ -28,6 +28,14 @@ class TournamentListRESTView(generics.ListAPIView):
     schema = AutoSchema(tags=['teams'])
 
 
+"""Widok listy wszystkich dostępnych zawodów"""
+class ActiveTournamentListRESTView(generics.ListAPIView):
+    serializer_class = serializers.TournamentSnippetSerializer
+    schema = AutoSchema(operation_id_base='active_tournaments', tags=['teams'])
+    def get_queryset(self):
+        sport = self.kwargs["sport"]
+        return models.Tournament.objects.filter(sport=sport, finished=False)
+
 """Widok szczegółowy danych zawodów"""
 class TournamentInstanceRESTView(generics.RetrieveAPIView):
     queryset = models.Tournament.objects.all()
