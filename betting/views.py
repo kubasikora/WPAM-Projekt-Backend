@@ -44,12 +44,13 @@ class LeagueListRESTView(generics.ListAPIView):
     schema = AutoSchema(tags=['betting'])
 
 
-class LeaderboardListRESTView(generics.ListAPIView):
+class LeaderboardListRESTView(generics.RetrieveAPIView):
     serializer_class = serializers.LeaderboardSerializer
     schema = AutoSchema(operation_id_base='leaders',tags=['betting'])
 
     def get_queryset(self):
         leagueid = self.kwargs["pk"]
+        print(models.League.objects.filter(id=leagueid).first())
         return models.League.objects.filter(id=leagueid)
 
 class LeaguePostRESTView(generics.CreateAPIView):
