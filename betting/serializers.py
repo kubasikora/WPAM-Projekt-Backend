@@ -23,6 +23,7 @@ class UserSerializer(serializers.ModelSerializer):
         model = User
         fields = ('username', 'first_name', 'last_name')
 
+
 class LeagueSerializer(serializers.ModelSerializer):
     tournament = TournamentSnippetSerializer()
     class Meta:
@@ -48,4 +49,11 @@ class ParticipantShortSerializer(serializers.ModelSerializer):
     class Meta:
         model = models.Participant
         fields = '__all__'
+
+
+class LeaderboardSerializer(serializers.ModelSerializer):
+    participants = ParticipantSerializer(many=True)
+    class Meta:
+        model = models.League
+        fields = ('participants',)
 

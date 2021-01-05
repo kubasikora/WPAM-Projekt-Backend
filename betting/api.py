@@ -12,6 +12,7 @@ urlpatterns = [
     path('leagues', views.LeagueListRESTView.as_view(), name='rest_league_list'),
     path('post_league', views.LeaguePostRESTView.as_view(), name='rest_post_league'),
     path('leagues/<str:pk>', views.LeagueListRESTView.as_view(),name='rest_league_instance'),
+    path('leagues/<str:pk>/leaders', views.LeaderboardListRESTView.as_view(),name='rest_league_leaders_instance'),
 
     path('participants', views.ParticipantListRESTView.as_view(), name='rest_participants_list'),
     path('post_participant', views.ParticipantPostRESTView.as_view(), name='rest_post_participant'),
