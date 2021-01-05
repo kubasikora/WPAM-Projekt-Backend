@@ -10,7 +10,7 @@ class BetAdminView(admin.ModelAdmin):
 
 @admin.register(models.League)
 class LeagueAdminView(admin.ModelAdmin):
-    list_display = ("name", "created")
+    list_display = ("name", "created", "tournament")
     search_fields = ("name", "tournament")
 
 
