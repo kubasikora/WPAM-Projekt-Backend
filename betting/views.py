@@ -1,3 +1,4 @@
+
 from rest_framework import generics
 from rest_framework.schemas.openapi import AutoSchema
 from betting import models, serializers
@@ -70,8 +71,6 @@ class ParticipantPostRESTView(generics.CreateAPIView):
 
     def perform_create(self, serializer):
         leagueKey = self.kwargs["leagueKey"]
-        print(models.League.objects.filter(leagueKey=leagueKey))
-        print(self.request.user)
         serializer.save(league=models.League.objects.filter(leagueKey=leagueKey).first(),
                         user=self.request.user)
 
@@ -88,6 +87,7 @@ class ParticipantOfUserForLeagueListRESTView(generics.ListAPIView):
     serializer_class = serializers.ParticipantSerializer
     schema = AutoSchema(operation_id_base='user_participants', tags=['betting'])
     filter_params = ('league',)
+
     def get_queryset(self):
         leagueId = self.request.query_params.get('league', None)
         return models.Participant.objects.filter(user=self.request.user,
