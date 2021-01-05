@@ -65,9 +65,15 @@ class ParticipantListRESTView(generics.ListAPIView):
 
 
 class ParticipantPostRESTView(generics.CreateAPIView):
-    queryset = models.Participant.objects.all()
-    serializer_class = serializers.ParticipantShortSerializer
+    serializer_class = serializers.ParticipantOnlyPointsSerializer
     schema = AutoSchema(operation_id_base='post_participant', tags=['betting'])
+
+    def perform_create(self, serializer):
+        leagueKey = self.kwargs["leagueKey"]
+        print(models.League.objects.filter(leagueKey=leagueKey))
+        print(self.request.user)
+        serializer.save(league=models.League.objects.filter(leagueKey=leagueKey).first(),
+                        user=self.request.user)
 
 
 class ParticipantsOfUserListRESTView(generics.ListAPIView):

@@ -15,7 +15,7 @@ urlpatterns = [
     path('leagues/<str:pk>/leaders', views.LeaderboardListRESTView.as_view(),name='rest_league_leaders_instance'),
 
     path('participants', views.ParticipantListRESTView.as_view(), name='rest_participants_list'),
-    path('post_participant', views.ParticipantPostRESTView.as_view(), name='rest_post_participant'),
+    path('league/<str:leagueKey>/join', views.ParticipantPostRESTView.as_view(), name='rest_post_participant'),
     path('participants/mine', views.ParticipantsOfUserListRESTView.as_view(), name='rest_participants_of_user_list')
 
 ]

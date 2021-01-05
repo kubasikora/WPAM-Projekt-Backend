@@ -57,3 +57,8 @@ class LeaderboardSerializer(serializers.ModelSerializer):
         model = models.League
         fields = ('participants',)
 
+
+class ParticipantOnlyPointsSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = models.Participant
+        fields = ('points',)
