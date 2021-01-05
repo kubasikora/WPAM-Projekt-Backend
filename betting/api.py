@@ -5,7 +5,7 @@ app_name = "betting"
 
 urlpatterns = [
     path('bets', views.BetListRESTView.as_view(), name='rest_bet_list'),
-    path('post_bet', views.BetPostRESTView.as_view(), name='rest_post_bet'),
+    path('bets/<str:pk>/place', views.BetPlaceRESTView.as_view(), name='rest_place_bet'),
     path('bets/mine', views.UserBetsListRESTView.as_view(), name='rest_user_bets_list'),
     path('bets/mine/inLeague', views.UserBetsInLeagueListRESTView.as_view(), name='rest_user_bets_in_league_list'),
 

@@ -11,10 +11,10 @@ class BetListRESTView(generics.ListAPIView):
     schema = AutoSchema(operation_id_base='TBD', tags=['betting'])
 
 
-class BetPostRESTView(generics.CreateAPIView):
+class BetPlaceRESTView(generics.UpdateAPIView):
     queryset = models.Bet.objects.all()
     serializer_class = serializers.BetShortSerializer
-    schema = AutoSchema(operation_id_base='post_bet', tags=['betting'])
+    schema = AutoSchema(operation_id_base='place_bet', tags=['betting'])
 
 
 """Widok listy wszystkich dostępnych zakładów konkretnego użytkownika"""
@@ -50,7 +50,6 @@ class LeaderboardListRESTView(generics.RetrieveAPIView):
 
     def get_queryset(self):
         leagueid = self.kwargs["pk"]
-        print(models.League.objects.filter(id=leagueid).first())
         return models.League.objects.filter(id=leagueid)
 
 class LeaguePostRESTView(generics.CreateAPIView):
