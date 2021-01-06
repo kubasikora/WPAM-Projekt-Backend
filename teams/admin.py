@@ -25,7 +25,7 @@ class VenueAdminView(admin.ModelAdmin):
 
 @admin.register(models.Match)
 class MatchAdminView(admin.ModelAdmin):
-    list_display = ("wynik", "playerOne", "playerTwo", "finished", "tournament", "venue")
+    list_display = ("wynik", "playerOne", "playerTwo", "finished", "tournament", "venue", "dateOfStart")
     search_fields = ("playerOne", "playerTwo")
     list_filter = ("finished",)
 

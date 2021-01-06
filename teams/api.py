@@ -9,6 +9,7 @@ urlpatterns = [
     path('tournaments', views.TournamentListRESTView.as_view(), name='rest_tournament_list'),
     path('tournaments/active', views.ActiveTournamentListRESTView.as_view(), name='rest_active_tournament_list'),
     path('tournaments/<str:pk>', views.TournamentInstanceRESTView.as_view(), name='rest_tournament_instance'),
+    path('matches/stats/<str:pk>', views.MatchStatisticsRESTView.as_view(), name="rest_match_statistics"),
     path('matches/fixtures', views.FixtureListRESTView.as_view(), name='rest_fixture_list'),
     path('matches/fixtures/<str:pk>', views.FixtureInstanceRESTView.as_view(), name='fixture_instance'),
     path('matches/results', views.ResultListRESTView.as_view(), name='rest_result_list'),

@@ -43,6 +43,7 @@ class ActiveTournamentListRESTView(generics.ListAPIView):
 
         return queryset.all()
 
+
 """Widok szczegółowy danych zawodów"""
 class TournamentInstanceRESTView(generics.RetrieveAPIView):
     queryset = models.Tournament.objects.all()
@@ -76,6 +77,13 @@ class ResultInstanceRESTView(generics.RetrieveAPIView):
     queryset = models.Match.objects.filter(finished=True).all()
     serializer_class = serializers.ResultSerializer
     schema = AutoSchema(operation_id_base='result', tags=['teams'])
+
+
+"""Statystyki danego spotkania"""
+class MatchStatisticsRESTView(generics.RetrieveAPIView):
+    queryset = models.Match.objects.all()
+    serializer_class = serializers.MatchStatisticsSerializer
+    schema = AutoSchema(operation_id_base='stats', tags=['teams'])
     
 # template-based views
 
