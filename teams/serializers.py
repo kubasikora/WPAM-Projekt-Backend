@@ -98,23 +98,23 @@ class MatchStatisticsSerializer(serializers.ModelSerializer):
         for match in data:
             if match.playerOne == player:
                 if match.playerOneResult > match.playerTwoResult:
-                    form.append("W")
+                    form.append(f"W vs {match.playerTwo}")
                     continue
                 if match.playerOneResult == match.playerTwoResult:
-                    form.append("D")
+                    form.append(f"D vs {match.playerTwo}")
                     continue
                 if match.playerOneResult < match.playerTwoResult:
-                    form.append("L")
+                    form.append(f"L vs {match.playerTwo}")
                     continue
             if match.playerTwo == player:
                 if match.playerOneResult > match.playerTwoResult:
-                    form.append("L")
+                    form.append(f"L vs {match.playerOne}")
                     continue
                 if match.playerOneResult == match.playerTwoResult:
-                    form.append("D")
+                    form.append(f"D vs {match.playerOne}")
                     continue
                 if match.playerOneResult < match.playerTwoResult:
-                    form.append("W")
+                    form.append(f"W vs {match.playerOne}")
                     continue
         return form
 
