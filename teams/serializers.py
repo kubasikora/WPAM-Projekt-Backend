@@ -92,8 +92,31 @@ class MatchStatisticsSerializer(serializers.ModelSerializer):
 
     def get_player_form(self, match, player):
         queryset = models.Match.objects.filter(dateOfStart__lt=match.dateOfStart, finished=True)
-        result = queryset.filter(playerOne=player) | queryset.filter(playerTwo=player)  
-        return ResultSerializer(result[:5], many=True).data
+        result = queryset.filter(playerOne=player) | queryset.filter(playerTwo=player)
+        data = result.order_by("-dateOfStart")[:5]
+        form = []
+        for match in data:
+            if match.playerOne == player:
+                if match.playerOneResult > match.playerTwoResult:
+                    form.append("W")
+                    continue
+                if match.playerOneResult == match.playerTwoResult:
+                    form.append("D")
+                    continue
+                if match.playerOneResult < match.playerTwoResult:
+                    form.append("L")
+                    continue
+            if match.playerTwo == player:
+                if match.playerOneResult > match.playerTwoResult:
+                    form.append("L")
+                    continue
+                if match.playerOneResult == match.playerTwoResult:
+                    form.append("D")
+                    continue
+                if match.playerOneResult < match.playerTwoResult:
+                    form.append("W")
+                    continue
+        return form
 
     def get_player_one_form(self, obj):
         return self.get_player_form(obj, obj.playerOne)

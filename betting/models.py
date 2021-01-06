@@ -44,4 +44,4 @@ class Bet(models.Model):
         return f'{self.participant} on {self.match}'
 
     class Meta:
-        ordering = ("-date",)
+        ordering = ("-match__dateOfStart",)
