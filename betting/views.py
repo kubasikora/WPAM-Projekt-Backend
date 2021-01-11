@@ -2,7 +2,7 @@
 from rest_framework import generics
 from rest_framework.schemas.openapi import AutoSchema
 from betting import models, serializers
-
+from django.utils import timezone
 
 # rest endpoint views
 """Widok listy wszystkich dostępnych zakładów"""
@@ -35,8 +35,18 @@ class UserBetsInLeagueListRESTView(generics.ListAPIView):
 
     def get_queryset(self):
         leagueId = self.request.query_params.get('league', None)
-        return models.Bet.objects.filter(participant__user=self.request.user,
+        user_bets = models.Bet.objects.filter(participant__user=self.request.user,
                                          participant__league=leagueId)
+
+        bets = user_bets.filter(participant__user=self.request.user,
+                                         participant__league=leagueId,
+                                         match__dateOfStart__gt=timezone.now()).all()
+
+        history =  user_bets.filter(participant__user=self.request.user,
+                                         participant__league=leagueId,
+                                         match__dateOfStart__lte=timezone.now()).order_by("-match__dateOfStart")[:10]
+
+        return bets | history
 
 
 class LeagueListRESTView(generics.ListAPIView):
