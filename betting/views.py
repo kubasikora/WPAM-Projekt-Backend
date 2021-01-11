@@ -44,7 +44,7 @@ class UserBetsInLeagueListRESTView(generics.ListAPIView):
 
         history =  user_bets.filter(participant__user=self.request.user,
                                          participant__league=leagueId,
-                                         match__dateOfStart__lte=timezone.now()).order_by("-match__dateOfStart")[:10]
+                                         match__dateOfStart__lte=timezone.now()).order_by("-match__dateOfStart")[:20]
 
         return bets | history
 
